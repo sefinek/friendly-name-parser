@@ -1,6 +1,6 @@
 {
   "name": "friendly-name-parser",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A module that allows for the normalization of usernames and validation to detect HTML, JS, or PHP code.",
   "keywords": [
     "username",
@@ -20,10 +20,15 @@
     "type": "git",
     "url": "git+https://github.com/sefinek/friendly-name-parser.git"
   },
+  "funding": {
+    "type": "individual",
+    "url": "https://sefinek.net/donate"
+  },
   "license": "MIT",
   "author": "Sefinek <contact@sefinek.net> (https://sefinek.net)",
   "type": "commonjs",
   "main": "src/index.js",
+  "types": "index.d.ts",
   "directories": {
     "example": "example",
     "test": "test"
@@ -31,6 +36,7 @@
   "files": [
     "example",
     "src",
+    "index.d.ts",
     "LICENSE",
     "README"
   ],

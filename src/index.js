@@ -1,30 +1,41 @@
-const prettyOutput = require('./utils/pretty.js');
+const patterns = require('./patterns.js');
+const prettyNick = require('./utils/pretty.js');
+const cleanNick = require('./utils/cleanNick.js');
+const cleanComment = require('./utils/cleanComment.js');
 
-const patterns = {
-	html: /<\/?[a-z][\s\S]*>/i,
-	js: /\b(function|var|let|const|if|for|while|switch|return|alert)\b/,
-	php: /<\?php[\s\S]*\?>/i,
-	breakSpaces: /[\u00A0\u1680\u2000-\u200A\u202F\u205F\u3000\u2028\u2029\u2006\u2001\u2002\u2003\u2004\u2005\u2007\u2008\u2009\u200A]/g,
-	multilineComments: /\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->|#.*(?:\r?\n|$)/
-};
+class FriendlyNameParser {
+	constructor(inputString) {
+		patterns.breakSpaces.lastIndex = 0;
+		patterns.multilineComments.lastIndex = 0;
 
-module.exports = inputString => {
-	const results = {
-		input: inputString,
-		pretty: prettyOutput(inputString, patterns.breakSpaces),
-		isHTML: patterns.html.test(inputString),
-		isJS: patterns.js.test(inputString),
-		isPHP: patterns.php.test(inputString),
-		breakSpaces: patterns.breakSpaces.test(inputString),
-		hasMultilineComments: patterns.multilineComments.test(inputString)
-	};
+		this.input = inputString;
+		this.pretty = prettyNick(inputString);
+		this.isHTML = patterns.html.test(inputString);
+		this.isJS = patterns.jsDetect.test(inputString);
+		this.isPHP = patterns.php.test(inputString);
+		this.breakSpaces = patterns.breakSpaces.test(inputString);
+		this.hasMultilineComments = patterns.multilineComments.test(inputString);
+		this.isPlainText = ![this.isHTML, this.isJS, this.isPHP, this.breakSpaces, this.hasMultilineComments].includes(true);
+		this.detected = ['isHTML', 'isJS', 'isPHP', 'breakSpaces', 'hasMultilineComments']
+			.filter(key => this[key] === true)
+			.map(key => key
+				.replace('is', '')
+				.replace('breakSpaces', 'Break spaces')
+				.replace('hasMultilineComments', 'Multiline comments')
+			);
+	}
 
-	results.isPlainText = !Object.values(results).includes(true);
-	results.detected = Object.keys(results)
-		.filter(key => results[key] === true && key !== 'isPlainText')
-		.map(key => key.replace('is', '')
-			.replace('breakSpaces', 'Break spaces')
-			.replace('hasMultilineComments', 'Multiline comments'));
+	static prettyNick(inputString) {
+		return prettyNick(inputString);
+	}
 
-	return results;
-};
+	static cleanNick(inputString) {
+		return cleanNick(inputString);
+	}
+
+	static cleanComment(inputString) {
+		return cleanComment(inputString);
+	}
+}
+
+module.exports = FriendlyNameParser;

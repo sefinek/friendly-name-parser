@@ -7,7 +7,7 @@ module.exports = {
 		filename: 'friendly-name-parser.min.js',
 		path: path.resolve(__dirname, 'dist'),
 		library: 'FriendlyNameParser',
-		libraryTarget: 'window'
+		libraryTarget: 'window',
 	},
-	devtool: 'source-map'
+	devtool: 'source-map',
 };

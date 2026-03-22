@@ -1,23 +1,15 @@
-const urlRegex = /https?:\/\/\S+/g;
-const emailRegex = /(\S+)@\S+\.\S+/g;
-const htmlTagRegex = /<[^>]*>/g;
-const phpTagRegex = /<\?php.*?\?>/gs;
-const reservedWordRegex = /\b(const|let|var|function|alert)\b/gi;
-const invalidCharsRegex = /[^a-z0-9\s'ąęółśżźćńĄĘÓŁŚŻŹĆŃ~]/gi;
-const multipleDotsRegex = /\.{2,}/g;
-const excessiveSpacesRegex = /\s{3,}/g;
-const spaceBeforePunctuationRegex = /\s([,.])/g;
+const patterns = require('../patterns.js');
 
 const lowerCaseWords = new Set(['the', 'a', 'an', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'from', 'by']);
 const specialCases = {
 	'html': 'HTML',
 	'css': 'CSS',
 	'js': 'JS',
-	'javascript': 'JavaScript'
+	'javascript': 'JavaScript',
 };
 
-module.exports = (inputString, breakSpaces) => {
-	const emailMatch = inputString.match(emailRegex);
+module.exports = inputString => {
+	const emailMatch = inputString.match(patterns.email);
 	if (emailMatch) {
 		const email = emailMatch[0];
 		const username = email.split('@')[0];
@@ -31,16 +23,16 @@ module.exports = (inputString, breakSpaces) => {
 	}
 
 	return inputString
-		.replace(urlRegex, '')
-		.replace(breakSpaces, '')
-		.replace(htmlTagRegex, '')
-		.replace(phpTagRegex, '')
-		.replace(reservedWordRegex, '')
+		.replace(patterns.url, '')
+		.replace(patterns.breakSpaces, '')
+		.replace(patterns.htmlTag, '')
+		.replace(patterns.phpTag, '')
+		.replace(patterns.jsReserved, '')
 		.toLowerCase()
-		.replace(invalidCharsRegex, '')
-		.replace(multipleDotsRegex, '.')
-		.replace(excessiveSpacesRegex, ' ')
-		.replace(spaceBeforePunctuationRegex, '$1')
+		.replace(patterns.invalidChars, '')
+		.replace(patterns.multipleDots, '.')
+		.replace(patterns.excessiveSpaces, ' ')
+		.replace(patterns.spaceBeforePunctuation, '$1')
 		.split(/\s+/)
 		.map((word, index) => {
 			word = specialCases[word.toLowerCase()] || word;
