@@ -25,11 +25,27 @@ Analyzes the input string and returns an object with the following properties:
 
 ### Static methods
 
-| Method                                 | Removes                            | Keeps        |
-|----------------------------------------|------------------------------------|--------------|
-| `FriendlyNameParser.prettyNick(str)`   | URLs, HTML, PHP, JS, special chars | Emojis       |
-| `FriendlyNameParser.cleanNick(str)`    | URLs, HTML, PHP, JS, comments      | Emojis       |
-| `FriendlyNameParser.cleanComment(str)` | HTML, PHP, JS, comments            | URLs, Emojis |
+#### `FriendlyNameParser.prettyNick(str)` — normalize a display name
+Cleans and formats a string into a readable, title-cased display name.
+
+- Removes: URLs, HTML tags, PHP tags, HTML entities, JS keywords, control characters, invalid characters (anything that's not a letter, digit, `'` or `~`)
+- Normalizes: title case (e.g. `hello world` → `Hello World`), excessive spaces, dots
+- Special: if the input contains an e-mail address, extracts and title-cases the username part
+- Keeps: emojis, Unicode letters (all languages)
+
+#### `FriendlyNameParser.cleanNick(str)` — sanitize a username/nickname
+Strips all potentially harmful or noisy content from a username.
+
+- Removes: URLs, e-mails, HTML tags, PHP tags, HTML entities, JS function calls, JS variable declarations, JS keywords, multiline comments (`/* */`, `<!-- -->`), Unicode break/zero-width spaces, control characters
+- Normalizes: excessive spaces, multiple dots, space before punctuation
+- Keeps: emojis, plain text
+
+#### `FriendlyNameParser.cleanComment(str)` — sanitize a user comment
+Same as `cleanNick` but preserves URLs (useful for user-submitted comments or bio text).
+
+- Removes: HTML tags, PHP tags, HTML entities, JS function calls, JS variable declarations, JS keywords, multiline comments (`/* */`, `<!-- -->`), Unicode break/zero-width spaces, control characters
+- Normalizes: excessive spaces, multiple dots, space before punctuation
+- Keeps: URLs, emojis, plain text
 
 
 ## Usage

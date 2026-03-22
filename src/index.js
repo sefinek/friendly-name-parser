@@ -5,6 +5,8 @@ const cleanComment = require('./utils/cleanComment.js');
 
 class FriendlyNameParser {
 	constructor(inputString) {
+		if (typeof inputString !== 'string') throw new TypeError(`Expected a string, got ${typeof inputString}`);
+
 		patterns.breakSpaces.lastIndex = 0;
 		patterns.multilineComments.lastIndex = 0;
 

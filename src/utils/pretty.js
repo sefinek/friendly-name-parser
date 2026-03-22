@@ -9,6 +9,8 @@ const specialCases = {
 };
 
 module.exports = inputString => {
+	if (typeof inputString !== 'string') throw new TypeError(`Expected a string, got ${typeof inputString}`);
+
 	const emailMatch = inputString.match(patterns.email);
 	if (emailMatch) {
 		const email = emailMatch[0];
@@ -27,7 +29,9 @@ module.exports = inputString => {
 		.replace(patterns.breakSpaces, '')
 		.replace(patterns.htmlTag, '')
 		.replace(patterns.phpTag, '')
+		.replace(patterns.htmlEntities, '')
 		.replace(patterns.jsReserved, '')
+		.replace(patterns.controlChars, '')
 		.toLowerCase()
 		.replace(patterns.invalidChars, '')
 		.replace(patterns.multipleDots, '.')
@@ -44,7 +48,7 @@ module.exports = inputString => {
 			}
 		})
 		.join(' ')
-		.replace(/\s{2,}/g, ' ')
+		.replace(patterns.excessiveSpaces, ' ')
 		.replace(/\.$/, '')
 		.trim();
 };
