@@ -1,7 +1,7 @@
 {
   "name": "friendly-name-parser",
   "version": "2.0.0",
-  "description": "A module that allows for the normalization of usernames and validation to detect HTML, JS, or PHP code.",
+  "description": "Sanitize and normalize usernames and comments — removes HTML, JS, PHP, URLs, and junk. Detects code injection.",
   "keywords": [
     "username",
     "friendly-name-parser",
