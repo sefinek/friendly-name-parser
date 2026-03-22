@@ -12,13 +12,13 @@
     "user-name-pretty",
     "user-name-friendly-name-parser"
   ],
-  "homepage": "https://github.com/sefinek24/friendly-name-parser#readme",
+  "homepage": "https://github.com/sefinek/friendly-name-parser#readme",
   "bugs": {
-    "url": "https://github.com/sefinek24/friendly-name-parser/issues"
+    "url": "https://github.com/sefinek/friendly-name-parser/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sefinek24/friendly-name-parser.git"
+    "url": "git+https://github.com/sefinek/friendly-name-parser.git"
   },
   "license": "MIT",
   "author": "Sefinek <contact@sefinek.net> (https://sefinek.net)",

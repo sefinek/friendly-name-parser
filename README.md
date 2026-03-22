@@ -109,7 +109,7 @@ You can find a larger collection of examples in the [examples](examples) folder.
 
 
 ## 🤝 Support
-If you encounter any issues or have questions regarding the use of [friendly-name-parser](https://www.npmjs.com/package/friendly-name-parser), please submit an [Issue](https://github.com/sefinek24/friendly-name-parser/issues) in the [GitHub repository](https://github.com/sefinek24/friendly-name-parser).
+If you encounter any issues or have questions regarding the use of [friendly-name-parser](https://www.npmjs.com/package/friendly-name-parser), please submit an [Issue](https://github.com/sefinek/friendly-name-parser/issues) in the [GitHub repository](https://github.com/sefinek/friendly-name-parser).
 
 
 ## 📑 License
