@@ -105,7 +105,7 @@ console.log(data);
 ```
 
 ### Other Examples
-You can find a larger collection of examples in the [examples](examples) folder.
+You can find a larger collection of examples in the [examples](example) folder.
 
 
 ## 🤝 Support

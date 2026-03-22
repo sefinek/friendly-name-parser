@@ -22,7 +22,18 @@
   },
   "license": "MIT",
   "author": "Sefinek <contact@sefinek.net> (https://sefinek.net)",
+  "type": "commonjs",
   "main": "src/index.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "files": [
+    "example",
+    "src",
+    "LICENSE",
+    "README"
+  ],
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "m": "ncu -u && npm install && npm update",
