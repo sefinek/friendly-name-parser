@@ -17,14 +17,9 @@ class FriendlyNameParser {
 		this.isPHP = patterns.php.test(inputString);
 		this.breakSpaces = patterns.breakSpaces.test(inputString);
 		this.hasMultilineComments = patterns.multilineComments.test(inputString);
-		this.isPlainText = ![this.isHTML, this.isJS, this.isPHP, this.breakSpaces, this.hasMultilineComments].includes(true);
-		this.detected = ['isHTML', 'isJS', 'isPHP', 'breakSpaces', 'hasMultilineComments']
-			.filter(key => this[key] === true)
-			.map(key => key
-				.replace('is', '')
-				.replace('breakSpaces', 'Break spaces')
-				.replace('hasMultilineComments', 'Multiline comments')
-			);
+		this.isPlainText = !this.isHTML && !this.isJS && !this.isPHP && !this.breakSpaces && !this.hasMultilineComments;
+		const detectedLabels = { isHTML: 'HTML', isJS: 'JS', isPHP: 'PHP', breakSpaces: 'Break spaces', hasMultilineComments: 'Multiline comments' };
+		this.detected = Object.keys(detectedLabels).filter(key => this[key] === true).map(key => detectedLabels[key]);
 	}
 
 	static prettyNick(inputString) {
