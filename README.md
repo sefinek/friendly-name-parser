@@ -13,7 +13,6 @@ Analyzes the input string and returns an object with the following properties:
 
 | Property               | Type       | Description                                           |
 |------------------------|------------|-------------------------------------------------------|
-| `input`                | `string`   | Original input                                        |
 | `pretty`               | `string`   | Normalized, title-cased name                          |
 | `isHTML`               | `boolean`  | Contains HTML tags                                    |
 | `isJS`                 | `boolean`  | Contains JavaScript keywords                          |
@@ -40,12 +39,18 @@ Strips all potentially harmful or noisy content from a username.
 - Normalizes: excessive spaces, multiple dots, space before punctuation
 - Keeps: emojis, plain text
 
-#### `FriendlyNameParser.cleanComment(str)` — sanitize a user comment
+#### `FriendlyNameParser.cleanComment(str, options?)` — sanitize a user comment
 Same as `cleanNick` but preserves URLs (useful for user-submitted comments or bio text).
 
 - Removes: HTML tags, PHP tags, HTML entities, JS function calls, JS variable declarations, JS keywords, multiline comments (`/* */`, `<!-- -->`), Unicode break/zero-width spaces, control characters
 - Normalizes: excessive spaces, multiple dots, space before punctuation
 - Keeps: URLs, emojis, plain text
+
+**Options:**
+
+| Option     | Type      | Default | Description                                                                                                                                                               |
+|------------|-----------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `markdown` | `boolean` | `false` | When `true`, preserves Markdown syntax: skips multiline comment removal (which would strip `# headings`), multiple-dot normalization, and space-before-punctuation fixes. |
 
 
 ## Usage
@@ -58,14 +63,14 @@ FriendlyNameParser.prettyNick('I LOVE CUTE cats!!! 💞😻');             // "I
 FriendlyNameParser.prettyNick('<script>alert("Hello")</script>');       // "Hello"
 FriendlyNameParser.prettyNick('sefinek@example.com');                   // "Sefinek"
 
-FriendlyNameParser.cleanNick('Sefinek 🐱 https://sefinek.net <b>x</b>');     // "Sefinek 🐱 x"
-FriendlyNameParser.cleanComment('See https://example.com <b>bold</b> text'); // "See https://example.com bold text"
+FriendlyNameParser.cleanNick('sefinek 🐱 https://sefinek.net <b>x</b>');              // "sefinek 🐱 x"
+FriendlyNameParser.cleanComment('See https://example.com <b>bold</b> text');          // "See https://example.com bold text"
+FriendlyNameParser.cleanComment('# Heading\n**bold** <script>x</script>', { markdown: true }); // "# Heading\n**bold** x"
 
 // Full analysis
 const result = new FriendlyNameParser('<script>alert("hello world");</script>');
 console.log(result);
 // {
-//   input: '<script>alert("hello world");</script>',
 //   pretty: 'Hello World',
 //   isHTML: true,
 //   isJS: true,

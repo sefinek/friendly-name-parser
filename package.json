@@ -1,6 +1,6 @@
 {
   "name": "friendly-name-parser",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Sanitize and normalize usernames and comments — removes HTML, JS, PHP, URLs, and junk. Detects code injection.",
   "keywords": [
     "username",

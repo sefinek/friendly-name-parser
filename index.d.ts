@@ -1,7 +1,4 @@
 declare interface FriendlyNameParserResult {
-	/** Original input string. */
-	input: string;
-
 	/** Normalized, human-readable name with Title Case applied. */
 	pretty: string;
 
@@ -31,7 +28,6 @@ declare interface FriendlyNameParserResult {
 }
 
 declare class FriendlyNameParser implements FriendlyNameParserResult {
-	input: string;
 	pretty: string;
 	isHTML: boolean;
 	isJS: boolean;
@@ -73,11 +69,16 @@ declare class FriendlyNameParser implements FriendlyNameParserResult {
 	 * Cleans a comment or body text by removing HTML tags, PHP code, JS code, and comments.
 	 * URLs and emojis are preserved.
 	 * @param input - Raw string to clean.
+	 * @param options - Optional settings.
+	 * @param options.markdown - When `true`, preserves Markdown syntax: skips multiline comment removal
+	 *   (which would strip `# headings`), multiple-dot normalization, and space-before-punctuation fixes.
+	 *   Default: `false`.
 	 * @returns Cleaned string.
 	 * @example
 	 * FriendlyNameParser.cleanComment('See https://example.com <b>bold</b>') // "See https://example.com bold"
+	 * FriendlyNameParser.cleanComment('# Heading\n**bold**', { markdown: true }) // "# Heading\n**bold**"
 	 */
-	static cleanComment(input: string): string;
+	static cleanComment(input: string, options?: { markdown?: boolean }): string;
 }
 
 export = FriendlyNameParser;

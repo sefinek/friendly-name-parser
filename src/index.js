@@ -2,6 +2,7 @@ const patterns = require('./patterns.js');
 const prettyNick = require('./utils/pretty.js');
 const cleanNick = require('./utils/cleanNick.js');
 const cleanComment = require('./utils/cleanComment.js');
+const DETECTED_LABELS = { isHTML: 'HTML', isJS: 'JS', isPHP: 'PHP', breakSpaces: 'Break spaces', hasMultilineComments: 'Multiline comments' };
 
 class FriendlyNameParser {
 	constructor(inputString) {
@@ -10,7 +11,6 @@ class FriendlyNameParser {
 		patterns.breakSpaces.lastIndex = 0;
 		patterns.multilineComments.lastIndex = 0;
 
-		this.input = inputString;
 		this.pretty = prettyNick(inputString);
 		this.isHTML = patterns.html.test(inputString);
 		this.isJS = patterns.jsDetect.test(inputString);
@@ -18,8 +18,7 @@ class FriendlyNameParser {
 		this.breakSpaces = patterns.breakSpaces.test(inputString);
 		this.hasMultilineComments = patterns.multilineComments.test(inputString);
 		this.isPlainText = !this.isHTML && !this.isJS && !this.isPHP && !this.breakSpaces && !this.hasMultilineComments;
-		const detectedLabels = { isHTML: 'HTML', isJS: 'JS', isPHP: 'PHP', breakSpaces: 'Break spaces', hasMultilineComments: 'Multiline comments' };
-		this.detected = Object.keys(detectedLabels).filter(key => this[key] === true).map(key => detectedLabels[key]);
+		this.detected = Object.keys(DETECTED_LABELS).filter(key => this[key] === true).map(key => DETECTED_LABELS[key]);
 	}
 
 	static prettyNick(inputString) {
@@ -30,8 +29,8 @@ class FriendlyNameParser {
 		return cleanNick(inputString);
 	}
 
-	static cleanComment(inputString) {
-		return cleanComment(inputString);
+	static cleanComment(inputString, options) {
+		return cleanComment(inputString, options);
 	}
 }
 

@@ -334,4 +334,26 @@ describe('FriendlyNameParser.cleanComment', () => {
 	test('Preserves emojis', () => {
 		expect(FriendlyNameParser.cleanComment('Hello 🐱 world')).toBe('Hello 🐱 world');
 	});
+
+	describe('markdown option', () => {
+		test('Preserves # headings when markdown: true', () => {
+			expect(FriendlyNameParser.cleanComment('# Heading\nsome text', { markdown: true })).toContain('# Heading');
+		});
+
+		test('Strips # headings when markdown: false (default)', () => {
+			expect(FriendlyNameParser.cleanComment('# Heading\nsome text')).not.toContain('# Heading');
+		});
+
+		test('Preserves multiple dots when markdown: true', () => {
+			expect(FriendlyNameParser.cleanComment('Wait...', { markdown: true })).toContain('...');
+		});
+
+		test('Still removes HTML tags when markdown: true', () => {
+			expect(FriendlyNameParser.cleanComment('<b>bold</b>', { markdown: true })).toBe('bold');
+		});
+
+		test('Still removes JS code when markdown: true', () => {
+			expect(FriendlyNameParser.cleanComment('test alert("x") end', { markdown: true })).toBe('test end');
+		});
+	});
 });
