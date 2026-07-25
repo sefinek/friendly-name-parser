@@ -43,9 +43,9 @@ module.exports = inputString => {
 
 			if (index === 0 || !lowerCaseWords.has(word.toLowerCase())) {
 				return word.charAt(0).toUpperCase() + word.slice(1);
-			} else {
-				return word.toLowerCase();
 			}
+			return word.toLowerCase();
+
 		})
 		.join(' ')
 		.replace(patterns.excessiveSpaces, ' ')
