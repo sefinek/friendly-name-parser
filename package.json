@@ -42,15 +42,18 @@
   ],
   "scripts": {
     "build": "webpack --config webpack.config.js",
+    "lint": "eslint .",
     "m": "ncu -u && npm install && npm update",
-    "test": "jest test"
+    "test": "node --test"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.15.0",
     "globals": "^17.14.0",
-    "jest": "^30.5.2",
     "webpack": "^5.113.0",
     "webpack-cli": "^7.3.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }
