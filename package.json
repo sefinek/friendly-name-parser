@@ -12,7 +12,7 @@
     "user-name-pretty",
     "user-name-friendly-name-parser"
   ],
-  "homepage": "https://github.com/sefinek/friendly-name-parser#readme",
+  "homepage": "https://github.com/sefinek/friendly-name-parser",
   "bugs": {
     "url": "https://github.com/sefinek/friendly-name-parser/issues"
   },
